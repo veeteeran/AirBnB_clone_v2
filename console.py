@@ -128,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
             return
         if all_args[1]:
-            all_args =  all_args[1:]
+            all_args = all_args[1:]
         counter = 0
         for items in all_args:
             item = items.split('=')
@@ -138,6 +138,10 @@ class HBNBCommand(cmd.Cmd):
             all_args[counter] = item
             counter = counter + 1
         for pair in all_args:
+            if pair[0] in self.types:
+                cast = self.types.get(pair[0])
+                something = cast(pair[1])
+                pair[1] = something
             setattr(new_instance, pair[0], pair[1])
         storage.save()
         print(new_instance.id)
