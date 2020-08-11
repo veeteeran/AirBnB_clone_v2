@@ -55,3 +55,4 @@ class FileStorage:
         if key in self.__objects:
             del obj
             del self.__objects[key]
+            self.save()
