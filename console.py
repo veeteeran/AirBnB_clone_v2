@@ -123,11 +123,23 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[all_args[0]]()
+        print(len(all_args))
+        if len(all_args) == 2:
+            storage.save()
+            return
         if all_args[1]:
             all_args =  all_args[1:]
+        print(all_args)
+        counter = 0
         for items in all_args:
-            items.split('=')
-            print(items + "<------ ITEM")
+            item = items.split('=')
+            thing1 = item[1].replace('"', '\\"')
+            thing2 = thing1.replace("_", " ")
+            item[1] = thing2
+            all_args[counter] = item
+            print(all_args[counter])
+            print(item)
+            counter = counter + 1
         print(all_args)
         print("---------------------")
         for pair in all_args:
