@@ -12,12 +12,6 @@ from models.place import Place
 from models.review import Review
 from models.city import City
 from models.base_model import BaseModel
-os.environ['HBNB_ENV'] = "dev"
-os.environ['HBNB_MYSQL_USER'] = "hbnb_dev"
-os.environ['HBNB_MYSQL_PWD'] = "hbnb_dev_pwd"
-os.environ['HBNB_MYSQL_HOST'] = "localhost"
-os.environ['HBNB_MYSQL_DB'] = "hbnb_dev_db"
-os.environ['HBNB_TYPE_STORAGE'] = "db"
 
 
 class DBStorage:
@@ -60,7 +54,7 @@ class DBStorage:
         """ Adds a new object to the database """
         if obj is not None:
             self.__session.add(obj)
-        self.save()
+            self.save()
 
     def save(self):
         """ Saves the new stuff or whatever idk I'm drunk """
@@ -70,7 +64,7 @@ class DBStorage:
         """ Deletes the object from DB Cooper """
         if obj is not None:
             self.__session.delete(obj)
-        self.save()
+            self.save()
 
     def reload(self):
         from models.base_model import BaseModel, Base
