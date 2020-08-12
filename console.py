@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+import os
 
 
 class HBNBCommand(cmd.Cmd):
@@ -124,6 +125,10 @@ class HBNBCommand(cmd.Cmd):
             return
         new_instance = HBNBCommand.classes[all_args[0]]()
         if len(all_args) == 2:
+            if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+                all_args[1] = all_args[1].split("=")
+                setattr(new_instance, "name", all_args[1][1].strip('"'))
+                storage.new(new_instance)
             print(new_instance.id)
             storage.save()
             return
@@ -143,6 +148,8 @@ class HBNBCommand(cmd.Cmd):
                 something = cast(pair[1])
                 pair[1] = something
             setattr(new_instance, pair[0], pair[1])
+        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+                storage.new(new_instance)
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -226,6 +233,11 @@ class HBNBCommand(cmd.Cmd):
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
+                return
+            if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+                print("ARGS ARE:")
+                print(type(args))
+                print(storage.all(args))
                 return
             for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
