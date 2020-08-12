@@ -42,7 +42,7 @@ class DBStorage:
             the_type = types.get(cls)
             result = self.__session.query(the_type).all()
         else:
-            result = self.__session.query(State, City).all()
+            result = self.__session.query(State, City, User).all()
         return_dict = {}
         for item in result:
             key = item.__class__.__name__ + "." + item.id
