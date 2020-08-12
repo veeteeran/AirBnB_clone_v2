@@ -5,12 +5,6 @@ Database Storage module
 """
 from sqlalchemy import Column, Table
 import os
-os.environ['HBNB_ENV'] = "dev"
-os.environ['HBNB_MYSQL_USER'] = "hbnb_dev"
-os.environ['HBNB_MYSQL_PWD'] = "hbnb_dev_pwd"
-os.environ['HBNB_MYSQL_HOST'] = "localhost"
-os.environ['HBNB_MYSQL_DB'] = "hbnb_dev_db"
-os.environ['HBNB_TYPE_STORAGE'] = "db"
 from models.user import User
 from models.state import State
 from models.amenity import Amenity
@@ -18,6 +12,12 @@ from models.place import Place
 from models.review import Review
 from models.city import City
 from models.base_model import BaseModel
+os.environ['HBNB_ENV'] = "dev"
+os.environ['HBNB_MYSQL_USER'] = "hbnb_dev"
+os.environ['HBNB_MYSQL_PWD'] = "hbnb_dev_pwd"
+os.environ['HBNB_MYSQL_HOST'] = "localhost"
+os.environ['HBNB_MYSQL_DB'] = "hbnb_dev_db"
+os.environ['HBNB_TYPE_STORAGE'] = "db"
 
 
 class DBStorage:
@@ -29,29 +29,28 @@ class DBStorage:
         """ Time to make some shit """
         from sqlalchemy import create_engine
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            os.getenv('HBNB_MYSQL_USER'), os.getenv('HBNB_MYSQL_PWD'), os.getenv('HBNB_MYSQL_HOST'), os.getenv('HBNB_MYSQL_DB'), pool_pre_ping=True))
+                        os.getenv('HBNB_MYSQL_USER'),
+                        os.getenv('HBNB_MYSQL_PWD'),
+                        os.getenv('HBNB_MYSQL_HOST'),
+                        os.getenv('HBNB_MYSQL_DB'), pool_pre_ping=True))
         if os.getenv('HBNB_ENV') == "test" and self.__engine is not None:
             from models.base_model import Base
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """ Doing all of something """
-        types ={
+        types = {
                 'BaseModel': BaseModel, 'User': User, 'Place': Place,
                 'State': State, 'City': City, 'Amenity': Amenity,
                 'Review': Review
             }
-        print(cls)
-        print("-----------------")
         if cls is not None:
             the_type = types.get(cls)
-            new_var = the_type(cls)
             result = self.__session.query(the_type).all()
         else:
             result = self.__session.query(State, City).all()
         return_dict = {}
         for item in result:
-            print(item)
             key = item.__class__.__name__ + "." + item.id
             value = item
             return_dict.update({key: value})
@@ -80,6 +79,6 @@ class DBStorage:
         from sqlalchemy.orm import sessionmaker, scoped_session
         if self.__engine is not None:
             Base.metadata.create_all(self.__engine)
-        session_thing = sessionmaker(bind=self.__engine,  expire_on_commit=False)
-        Session = scoped_session(session_thing)
+        sesh_thing = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(sesh_thing)
         self.__session = Session()
