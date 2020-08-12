@@ -126,6 +126,8 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[all_args[0]]()
         if len(all_args) == 2:
             if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+                print("iall_args[1]:")
+                print(all_args[1])
                 all_args[1] = all_args[1].split("=")
                 setattr(new_instance, "name", all_args[1][1].strip('"'))
                 storage.new(new_instance)
@@ -137,7 +139,8 @@ class HBNBCommand(cmd.Cmd):
         counter = 0
         for items in all_args:
             item = items.split('=')
-            thing1 = item[1].replace('"', '\"')
+            print("Item[0]: {}, Item[1]: {}".format(item[0], item[1]))
+            thing1 = item[1].strip('"')
             thing2 = thing1.replace("_", " ")
             item[1] = thing2
             all_args[counter] = item
@@ -148,9 +151,7 @@ class HBNBCommand(cmd.Cmd):
                 something = cast(pair[1])
                 pair[1] = something
             setattr(new_instance, pair[0], pair[1])
-        """
-        if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-                storage.new(new_instance)"""
+        storage.new(new_instance)
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -229,7 +230,6 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
