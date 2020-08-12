@@ -128,7 +128,7 @@ class HBNBCommand(cmd.Cmd):
             if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                 all_args[1] = all_args[1].split("=")
                 setattr(new_instance, "name", all_args[1][1].strip('"'))
-                storage.new(new_instance)
+            storage.new(new_instance)
             print(new_instance.id)
             storage.save()
             return
