@@ -126,8 +126,6 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[all_args[0]]()
         if len(all_args) == 2:
             if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-                print("iall_args[1]:")
-                print(all_args[1])
                 all_args[1] = all_args[1].split("=")
                 setattr(new_instance, "name", all_args[1][1].strip('"'))
                 storage.new(new_instance)
@@ -139,7 +137,6 @@ class HBNBCommand(cmd.Cmd):
         counter = 0
         for items in all_args:
             item = items.split('=')
-            print("Item[0]: {}, Item[1]: {}".format(item[0], item[1]))
             thing1 = item[1].strip('"')
             thing2 = thing1.replace("_", " ")
             item[1] = thing2
@@ -251,7 +248,8 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in storage._FileStorage__objects.items():
                     print_list.append(str(v))
 
-        print(print_list)
+        if len(print_list) > 0:
+            print(print_list)
 
     def help_all(self):
         """ Help information for the all command """
