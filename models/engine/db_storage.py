@@ -38,14 +38,18 @@ class DBStorage:
                 'State': State, 'City': City, 'Amenity': Amenity,
                 'Review': Review
             }
-        if cls is not None:
+        if cls is not None and cls != "":
             the_type = types.get(cls)
             result = self.__session.query(the_type).all()
         else:
-            result = self.__session.query(State, City, User).all()
+            result = self.__session.query(State).all()
+            result = result + self.__session.query(City).all()
+            result = result + self.__session.query(User).all()
         return_dict = {}
         for item in result:
             key = item.__class__.__name__ + "." + item.id
+            if '_sa_instance_state' in item.__dict__:
+                del item.__dict__['_sa_instance_state']
             value = item
             return_dict.update({key: value})
         return return_dict
