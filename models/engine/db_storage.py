@@ -46,6 +46,7 @@ class DBStorage:
             result = result + self.__session.query(City).all()
             result = result + self.__session.query(User).all()
             result = result + self.__session.query(Place).all()
+            result = result + self.__session.query(Review).all()
         return_dict = {}
         for item in result:
             key = item.__class__.__name__ + "." + item.id
