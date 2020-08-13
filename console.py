@@ -116,7 +116,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        valid_types = [str, int, float]
         if not args:
             print("** class name missing **")
             return
@@ -143,8 +142,10 @@ class HBNBCommand(cmd.Cmd):
                 something = cast(pair[1])
                 pair[1] = something
             '''Continue to next interation if type not in list'''
+            '''
             if type(pair[1]) not in valid_types:
                 continue
+            '''
             setattr(new_instance, pair[0], pair[1])
 
         new_instance.save()
@@ -223,21 +224,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-<<<<<<< HEAD
-=======
-        from models import storage as pineapple
-        print("do_all method after import line 249")
-<<<<<<< HEAD
->>>>>>> parent of e70818c... Removed extra print statement
-=======
->>>>>>> parent of e70818c... Removed extra print statement
         print_list = []
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage.all(HBNBCommand.classes[args]).items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
