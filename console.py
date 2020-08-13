@@ -116,7 +116,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        '''What if args is None?'''
         if not args:
             print("** class name missing **")
             return
@@ -220,18 +219,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        from models import storage as pineapple
         print_list = []
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in pineapple.all(args).items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in pineapple.items():
+            for k, v in storage.items():
                 print_list.append(str(v))
 
         print(print_list)
