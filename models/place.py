@@ -34,6 +34,7 @@ class Place(BaseModel, Base):
                                  nullable=False))
     amenities = relationship("Amenity", secondary='place_amenity',
                              viewonly=False, backref='places')
+
     @property
     def reviews(self):
         """Returns the list of review instances with stuff equals to

@@ -13,6 +13,7 @@ from models.review import Review
 from models.city import City
 from models.base_model import BaseModel, Base
 
+
 class DBStorage:
     """ DataBase Storage class """
     __engine = None
@@ -41,13 +42,11 @@ class DBStorage:
             result = self.__session.query(the_type).all()
         else:
             result = self.__session.query(State).all()
-            '''
             result = result + self.__session.query(City).all()
             result = result + self.__session.query(User).all()
             result = result + self.__session.query(Place).all()
             result = result + self.__session.query(Review).all()
             result = result + self.__session.query(Amenity).all()
-            '''
         return_dict = {}
         for item in result:
             key = item.__class__.__name__ + "." + item.id
@@ -59,16 +58,10 @@ class DBStorage:
         """ Adds a new object to the database """
         if obj is not None:
             self.__session.add(obj)
-        print("Line 63 in new method-> __session:")
-        print(self.__session)
 
     def save(self):
         """ Saves the new stuff or whatever idk I'm drunk """
-        print("Line 66 in save method-> __session:")
-        print(self.__session)
         self.__session.commit()
-        print("Line 70 in save method after commit")
-        print(self.__session)
 
     def delete(self, obj):
         """ Deletes the object from DB Cooper """
@@ -82,5 +75,3 @@ class DBStorage:
         sesh_thing = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sesh_thing)
         self.__session = Session()
-        print("Line 81 in reload method -> __session:")
-        print(self.__session)
