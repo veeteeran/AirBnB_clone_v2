@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         all_args = args.split()
-        elif all_args[0] not in HBNBCommand.classes:
+        if all_args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
