@@ -20,7 +20,7 @@ class State(BaseModel, Base):
         fs = FileStorage.all(City)
         city_list = []
         for key, value in fs.items():
-            if State.id == value.state_id:
+            if value.place_id in value and self.id == value.state_id:
                 '''Append City instances maybe fucked up here!!!'''
-                city_list.append[value]
+                city_list.append(value)
         return city_list

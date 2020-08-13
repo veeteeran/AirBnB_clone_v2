@@ -3,7 +3,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
+from models import storage
 from models.user import User
 from models.place import Place
 from models.state import State
@@ -116,6 +116,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        '''What if args is None?'''
         all_args = args.split()
         if not all_args:
             print("** class name missing **")
@@ -123,15 +124,30 @@ class HBNBCommand(cmd.Cmd):
         elif all_args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
+        # Not sure what to do if no args given
+        elif len(all_args) < 2:
+            print("** No args entered **")
+            return
+        print("all_args[0] line 131:")
+        print(all_args[0])
         new_instance = HBNBCommand.classes[all_args[0]]()
+        print(new_instance)
+        print(storage.__dict__['_DBStorage__session'])
+        print("session in do_create after new instance created line 136")
+        # Don't think this is necessary
+        '''
         if len(all_args) == 2:
             if os.getenv('HBNB_TYPE_STORAGE') == 'db':
                 all_args[1] = all_args[1].split("=")
+        '''
+        ''' Name shouldn't be hard coded'''
+        '''
                 setattr(new_instance, "name", all_args[1][1].strip('"'))
             storage.new(new_instance)
             print(new_instance.id)
             storage.save()
             return
+        '''
         if all_args[1]:
             all_args = all_args[1:]
         counter = 0
@@ -148,11 +164,18 @@ class HBNBCommand(cmd.Cmd):
                 something = cast(pair[1])
                 pair[1] = something
             setattr(new_instance, pair[0], pair[1])
+        ''' Use the below instead of storage.new() storage.save()'''
+        print("Line 168: new_instance.__dict")
+        print(new_instance.__dict__)
+        new_instance.save()
+        ''' Just keep the print statement
         storage.new(new_instance)
         storage.save()
+        '''
         print(new_instance.id)
+        '''
         storage.save()
-
+        '''
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
@@ -226,28 +249,22 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
+        from models import storage as pineapple
+        print("do_all method after import line 249")
         print_list = []
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-                for k, v in storage.all(args).items():
-                    if k.split('.')[0] == args:
-                        print_list.append(str(v))
-            else:
-                for k, v in storage._FileStorage__objects.items():
-                    if k.split('.')[0] == args:
-                        print_list.append(str(v))
+            for k, v in pineapple.all(args).items():
+                if k.split('.')[0] == args:
+                    print_list.append(str(v))
         else:
-            if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-                for k, v in storage.all(args).items():
-                    print_list.append(str(v))
-            else:
-                for k, v in storage._FileStorage__objects.items():
-                    print_list.append(str(v))
+            for k, v in pineapple.items():
+                print_list.append(str(v))
 
+        # This condition might not be necessary
         if len(print_list) > 0:
             print(print_list)
 
