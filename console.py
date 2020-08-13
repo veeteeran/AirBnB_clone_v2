@@ -227,6 +227,9 @@ class HBNBCommand(cmd.Cmd):
 =======
         from models import storage as pineapple
         print("do_all method after import line 249")
+<<<<<<< HEAD
+>>>>>>> parent of e70818c... Removed extra print statement
+=======
 >>>>>>> parent of e70818c... Removed extra print statement
         print_list = []
         if args:
