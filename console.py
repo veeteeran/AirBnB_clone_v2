@@ -221,7 +221,6 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         from models import storage as pineapple
-        print("do_all method after import line 249")
         print_list = []
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
