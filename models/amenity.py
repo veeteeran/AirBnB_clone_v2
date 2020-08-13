@@ -12,4 +12,4 @@ class Amenity(BaseModel, Base):
     ''' deleted this: secondary=place_amenity '''
     """ commenting out code from task 10 to see if we get green checks again"""
     place_amenities = relationship("Place", secondary='place_amenity',
-                                    backref='amenities', viewonly=False) 
+                                   backref='amenities', viewonly=False)
