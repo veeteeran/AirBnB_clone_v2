@@ -116,6 +116,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        valid_types = [str, int, float]
         if not args:
             print("** class name missing **")
             return
@@ -141,6 +142,9 @@ class HBNBCommand(cmd.Cmd):
                 cast = self.types.get(pair[0])
                 something = cast(pair[1])
                 pair[1] = something
+            '''Continue to next interation if type not in list'''
+            if type(pair[1]) not in valid_types:
+                continue
             setattr(new_instance, pair[0], pair[1])
 
         new_instance.save()
@@ -187,7 +191,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, args):
         """ Destroys a specified object """
         new = args.partition(" ")
-        c_name = new[0]
+        c_name = new[0]:
         c_id = new[2]
         if c_id and ' ' in c_id:
             c_id = c_id.partition(' ')[0]
