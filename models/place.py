@@ -20,9 +20,10 @@ class Place(BaseModel, Base):
     latitude = Column(Float)
     longitude = Column(Float)
     amenity_ids = []
-    """ Commenting ut task 10 code to see if we get green checks back
+    """ Commenting ut task 10 code to see if we get green checks back"""
+    metadata = Base.metadata
     place_amenity = Table('place_amenity',
-                          Base.metadata,
+                          metadata,
                           Column("place_id", String(60),
                                  ForeignKey("places.id"),
                                  primary_key=True,
@@ -31,10 +32,8 @@ class Place(BaseModel, Base):
                                  ForeignKey("amenities.id"),
                                  primary_key=True,
                                  nullable=False))
-    amenities = relationship("Amenity", secondary=place_amenity,
-                             viewonly=False)
-    """
-
+    amenities = relationship("Amenity", secondary='place_amenity',
+                             viewonly=False, backref='places')
     @property
     def reviews(self):
         """Returns the list of review instances with stuff equals to
