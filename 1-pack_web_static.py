@@ -19,7 +19,6 @@ def do_pack():
         local('tar -cvzf versions/{} web_static'.format(archive))
         path = 'versions/{}'.format(archive)
         path = local('tar -cvzf versions/{} web_static'.format(archive))
-        
         return path
     except:
         return None
