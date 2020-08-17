@@ -10,14 +10,14 @@ def do_pack():
     of the web_static folder of your AirBnB Clone repo
     """
     dt = datetime.now()
-    dt_format = dt.strftime("%Y-%m-%d %H:%M:%S")
+    dt_format = dt.strftime("%Y%m%d%H%M%S")
     archive = "web_static_" + dt_format + ".tgz"
 
     local("mkdir -p versions")
 
     try:
-        path = local('sudo tar -cfzv versions/{} web_static'.format(archive))
-        
+        local('tar -cvzf versions/{} web_static'.format(archive))
+        path = 'versions/{}'.format(archive)
         return path
     except:
         return None
