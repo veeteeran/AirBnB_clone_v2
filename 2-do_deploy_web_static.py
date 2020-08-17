@@ -13,6 +13,9 @@ env.hosts = [web01, web02]
 
 def do_deploy(archive_path):
     """ do_deploy docstring """
+    if archive_path == '':
+        return False
+
     try:
         # Upload the archive to the /tmp/ directory of the web server
         put(archive_path, "/tmp/")
