@@ -13,11 +13,11 @@ def do_pack():
     dt_format = dt.strftime("%Y-%m-%d %H:%M:%S")
     archive = "web_static_" + dt_format + ".tgz"
 
-    local("mkdir -p ~/AirBnB_clone_v2/versions/")
+    local("mkdir -p versions")
 
     try:
-        local('tar -cfv {} ~/AirBnB_clone_v2/web_static/'.format(archive))
-        path = "~/AirBnB_clone_v2/versions/" + archive
+        path = local('sudo tar -cfzv versions/{} web_static'.format(archive))
+        
         return path
     except:
         return None
