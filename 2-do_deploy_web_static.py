@@ -24,10 +24,10 @@ def do_deploy(archive_path):
         run("tar -xzf /tmp/{} -C {}/".format(archive, output))
         # Delete the archive from the web server
         run("rm -rf /tmp/{}".format(archive))
+        run("mv {}/web_static/* {}".format(output, output))
         # Delete the symbolic link
         run("rm -rf /data/web_static/current")
         # Create a new the symbolic link
-        filename = archive.split('.')[0]
         run("ln -sf {}/ /data/web_static/current".format(output))
         print("New version deployed!")
         return True
