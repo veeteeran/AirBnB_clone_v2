@@ -21,15 +21,14 @@ def do_deploy(archive_path):
         output = "/data/web_static/releases/{}".format(archive.split('.')[0])
         run("mkdir -p {}/".format(output))
         # Uncompress the archive
-        run("tar -xzvf /tmp/{} -C {}/".format(archive, output))
+        run("tar -xzf /tmp/{} -C {}/".format(archive, output))
         # Delete the archive from the web server
         run("rm -rf /tmp/{}".format(archive))
         # Delete the symbolic link
         run("rm -rf /data/web_static/current")
         # Create a new the symbolic link
         filename = archive.split('.')[0]
-        run("ln -sf /data/web_static/releases/{}/ 
-            /data/web_static/current".format(filename))
+        run("ln -sf /data/web_static/releases/{}/ /data/web_static/current".format(filename))
         print("New version deployed!")
         return True
     except:
