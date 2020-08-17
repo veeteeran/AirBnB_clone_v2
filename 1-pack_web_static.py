@@ -16,7 +16,7 @@ def do_pack():
     local("mkdir -p versions")
 
     try:
-        path = local('sudo tar -cfzv versions/{} web_static'.format(archive))
+        path = local('sudo tar -cvzf versions/{} web_static'.format(archive))
         
         return path
     except:
