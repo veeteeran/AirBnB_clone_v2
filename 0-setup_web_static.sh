@@ -4,7 +4,6 @@
 apt-get update
 apt-get -y install nginx
 mkdir -p /data/web_static/releases/
-mkdir -p /data/web_static/current/
 mkdir -p /data/web_static/shared/
 mkdir -p /data/web_static/releases/test/
 echo "simple content, to test your Nginx configuration" > /data/web_static/releases/test/index.html
