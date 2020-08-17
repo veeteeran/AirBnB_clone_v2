@@ -28,7 +28,7 @@ def do_deploy(archive_path):
         # Delete the symbolic link
         run("rm -rf /data/web_static/current")
         # Create a new the symbolic link
-        run("ln -sf {}/ /data/web_static/current".format(output))
+        run("ln -s {}/ /data/web_static/current".format(output))
         print("New version deployed!")
         return True
     except:
