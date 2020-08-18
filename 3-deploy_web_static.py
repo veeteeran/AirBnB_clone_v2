@@ -4,7 +4,6 @@
 from fabric.api import env
 
 
-env.user = 'ubuntu'
 web01, web02 = '35.190.170.193', '3.80.222.135'
 env.hosts = [web01, web02]
 do_pack = __import__('1-pack_web_static').do_pack
