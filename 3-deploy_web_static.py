@@ -20,9 +20,7 @@ def do_pack():
 
     try:
         local('tar -cvzf versions/{} web_static'.format(archive))
-        path = 'versions/{}'.format(archive)
-        path = local('tar -cvzf versions/{} web_static'.format(archive))
-        return path
+        return 'versions/{}'.format(archive)
     except:
         return None
 
