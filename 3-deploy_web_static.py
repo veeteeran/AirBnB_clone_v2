@@ -57,7 +57,7 @@ def do_deploy(archive_path):
 
 def deploy():
     """ do_deploy docstring """
-    archive_path = do_pack()
-    if archive_path is None:
+    path_name = do_pack()
+    if path_name is None:
         return False
-    return do_deploy(archive_path)
+    return do_deploy(path_name)
