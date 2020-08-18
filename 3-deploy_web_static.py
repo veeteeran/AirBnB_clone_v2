@@ -54,6 +54,7 @@ def do_deploy(archive_path):
     except:
         return False
 
+
 def deploy():
     """ do_deploy docstring """
     archive_path = do_pack()
