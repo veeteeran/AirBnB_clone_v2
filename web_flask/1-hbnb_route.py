@@ -5,13 +5,13 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_HBNB():
+def hello_route():
     """Starts a Flask web application, display Hello HBNB!"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def display_HBNB():
+def hbnb_route():
     """Starts a Flask web application, display HBNB"""
     return 'HBNB'
 
