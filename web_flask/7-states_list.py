@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.teardown_appcontext
-def teardown(db):
+def teardown(self):
     """ Docstring for teardown """
     storage.close()
 
