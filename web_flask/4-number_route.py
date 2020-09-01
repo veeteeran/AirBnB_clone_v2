@@ -43,7 +43,7 @@ def number_route(n):
        display “n is a number” only if n is an integer
     """
     if type(n) is int:
-        return 'n is a number'
+        return '{} is a number'.format(n)
 
 if __name__ == '__main__':
     app.run(
