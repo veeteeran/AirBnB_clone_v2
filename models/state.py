@@ -23,7 +23,6 @@ class State(BaseModel, Base):
             from models.city import City
             fs = FileStorage.all(City)
             city_list = []
-            print('fs.items(): ', fs.items())
             for key, value in fs.items():
                 if 'City' in key and self.id == value.state_id:
                     '''Append City instances maybe fucked up here!!!'''
