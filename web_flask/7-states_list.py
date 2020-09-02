@@ -11,6 +11,7 @@ from models.state import State
 app = Flask(__name__)
 sto = storage.all('State').values()
 
+
 @app.route('/states_list', strict_slashes=False)
 def states_list():
     ''' Hello HBNB! '''
@@ -18,7 +19,7 @@ def states_list():
 
 
 @app.teardown_appcontext
-def close_db(error):
+def close_db(self):
     """ Closes the connection at the end of the request."""
     storage.close()
 
