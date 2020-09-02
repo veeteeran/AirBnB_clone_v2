@@ -16,9 +16,9 @@ def teardown(self):
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_list():
     """ display a HTML page: (inside the tag BODY) """
-    states = storage.all('State')
+    states = storage.all('State').values()
     if getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = storage.all('City')
+        cities = storage.all('City').values()
     else:
         cities = State.cities()
     
