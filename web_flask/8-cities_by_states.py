@@ -17,12 +17,15 @@ def teardown(self):
 def cities_list():
     """ display a HTML page: (inside the tag BODY) """
     states = storage.all('State').values()
+    print(states)
     if getenv('HBNB_TYPE_STORAGE') == 'db':
-        cities = storage.all('City').values()
+        for state in states:
+            cities = state.cities
     else:
-        cities = State.cities()
-    
-    return render_template('8-cities_by_states.html', states=states, cities=cities)
+        cities = storage.all('City').values()
+
+    return render_template('8-cities_by_states.html',
+                           states=states, cities=cities)
 
 if __name__ == '__main__':
     app.run(
