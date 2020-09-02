@@ -9,7 +9,7 @@ from models.state import State
 
 
 app = Flask(__name__)
-sto = storage.all(State).values()
+sto = storage.all('State').values()
 
 
 @app.route('/', strict_slashes=False)
