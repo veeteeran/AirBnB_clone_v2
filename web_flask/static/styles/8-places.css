@@ -4,6 +4,8 @@
 	flex-wrap: wrap;
 	margin: 45px auto;
 	text-align: center;
+	position: relative;
+	z-index: -1;
 }
 
 article {
@@ -31,6 +33,10 @@ article {
 
 	height: 80px;	
 	width: 100%;
+}
+
+.headline h2 {
+	padding-right: 60px;
 }
 
 .price_by_night {

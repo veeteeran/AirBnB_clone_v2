@@ -17,7 +17,6 @@ def teardown(self):
 def states_id(id):
     """ display a HTML page: (inside the tag BODY) """
     states = storage.all('State')
-    print(states)
     if id is not None:
         id = 'State.' + id
     return render_template('9-states.html', states=states, id=id)
