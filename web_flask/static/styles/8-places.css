@@ -36,7 +36,8 @@ article {
 }
 
 .headline h2 {
-	padding-right: 60px;
+	padding-right: 85px;
+	font-size: 1.8vw;
 }
 
 .price_by_night {
